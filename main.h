@@ -5,4 +5,6 @@ int _strlen(char *str);
 
 char *_strcpy(char *dest, const char *src);
 
+int starts_with(char *str1, char *str2);
+
 #endif
