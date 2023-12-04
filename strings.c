@@ -78,7 +78,8 @@ char *_strcpy(char *dest, const char *src)
  * @str1: the first string
  * @str2: the second string
  *
- * Return: a pointer to the new string
+ * Return: a pointer to the new string on success,
+ * NULL on failure
 */
 
 char *_strcat(char *str1, char *str2)
