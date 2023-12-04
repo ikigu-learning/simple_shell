@@ -1,4 +1,5 @@
-#include <main.h>
+#include "main.h"
+#include <stdlib.h>
 
 /**
  * _strlen - a function that counts the length of a string
@@ -70,4 +71,32 @@ char *_strcpy(char *dest, const char *src)
 	dest[i] = '\0';
 
 	return (dest);
+}
+
+/**
+ * _strcat - concatenates two strings
+ * @str1: the first string
+ * @str2: the second string
+ *
+ * Return: a pointer to the new string
+*/
+
+char *_strcat(char *str1, char *str2)
+{
+	int size;
+	char *new_string;
+
+	if (!str1 || !str2)
+		return (NULL);
+
+	size = _strlen(str1) + _strlen(str2) + 1;
+	new_string = malloc(size);
+
+	if (!new_string)
+		return (NULL);
+
+	_strcpy(new_string, str1);
+	_strcpy((new_string + _strlen(str1)), str2);
+
+	return (new_string);
 }
