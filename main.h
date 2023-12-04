@@ -9,4 +9,8 @@ int starts_with(char *str1, char *str2);
 
 char *_strcat(char *str1, char *str2);
 
+char *find_path(char *env[]);
+
+char **tokenize_path(char *str);
+
 #endif
