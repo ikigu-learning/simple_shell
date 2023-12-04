@@ -24,4 +24,8 @@ struct _PATH
  */
 typedef struct _PATH _path;
 
+char *find_path(char *env[]);
+
+char **tokenize_path(char *str);
+
 #endif
