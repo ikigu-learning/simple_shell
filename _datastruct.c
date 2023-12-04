@@ -1,10 +1,12 @@
 #include "main.h"
+#include <stddef.h>
+#include <stdlib.h>
 
 /**
- * print_list - a function to print all the elements of a
+ * __printlist - a function to print all the elements of a
  * list_t list
  * @h: pointer to the head of the list.
- * 
+ *
  * Return: returns number of elements
  */
 
@@ -25,9 +27,10 @@ size_t __printlist(const list_t *h)
 }
 
 /**
- * free_list - frees a linked list
+ * __freelist - frees a linked list
  * @head: list_t list to be freed
  */
+
 void __freelist(list_t *head)
 {
 	list_t *temp;
