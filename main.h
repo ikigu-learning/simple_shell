@@ -9,41 +9,22 @@ int starts_with(char *str1, char *str2);
 
 char *_strcat(char *str1, char *str2);
 
-size_t __printlist(const list_t *h);
+/* size_t __printlist(const list_t *h); */
 
-void __freelist(list_t *head);
+/* void __freelist(list_t *head); */
 
 char *find_path(char *env[]);
 
 char **tokenize_path(char *str);
 
-/**
- * struct path - a structure of the PATH dirs.
- * @_dir: pointer to pathname
- * @next: pointer to the next structure.
- */
+char **tokenize_command(char *str);
 
-typedef struct path
-{
-	char *_dir;
+void execute(char *command_tokens[]);
 
-	struct path *next;
-} path;
+char *find_exe(char *path_tokens[], char *command);
 
-/**
- * struct list_t - a linked list
- * @str: a string
- * @next: a pointer to the next node
- * @len: length of str
-*/
+void run_command(char **env, char *buffer);
 
-typedef struct list_t
-{
-	char *str;
-
-	struct list_t *next;
-
-	int len;
-} list_t;
+void free_grid(char **grid);
 
 #endif
