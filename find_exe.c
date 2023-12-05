@@ -5,8 +5,8 @@
 
 /**
  * find_exe - finds an executable file in $PATH
- * @path_tokens: an array of the files in path
- * @command: a string that was given as a command line
+ * @path_tokens: an array of the dirs in path
+ * @command: the first string user entered in a command line
  *
  * Return: a pointer to the full path of the command;
  * NULL if the command doesn't exist
@@ -36,20 +36,20 @@ char *find_exe(char *path_tokens[], char *command)
 		if (!full_path_to_exe)
 			return (NULL);
 
-		/* Concatenate the user-entered command and current PATH token */
+		/* Concatenate first str of user-entered cmd and current PATH token */
 		_strcpy(full_path_to_exe, path_tokens[i]);
 		_strcpy((full_path_to_exe + _strlen(full_path_to_exe)), slash);
 	    _strcpy((full_path_to_exe + _strlen(full_path_to_exe)), command);
 
-		/* Return the full concatenated path to the exe if found */
+		/* Return the full, concatenated path to the executable file if found*/
 		if (stat(full_path_to_exe, &buf) == 0)
 		{
 			return (full_path_to_exe);
 		}
 
 		i++;
-		free(full_path_to_exe);
+		free(full_path_to_exe); /* to avoid reallocating in the next iteration */
 	}
 
-	return (NULL);
+	return (NULL); /* if an executable file wasn't found */
 }
