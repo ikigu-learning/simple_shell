@@ -39,7 +39,7 @@ char *find_exe(char *path_tokens[], char *command)
 		/* Concatenate first str of user-entered cmd and current PATH token */
 		_strcpy(full_path_to_exe, path_tokens[i]);
 		_strcpy((full_path_to_exe + _strlen(full_path_to_exe)), slash);
-	    _strcpy((full_path_to_exe + _strlen(full_path_to_exe)), command);
+		_strcpy((full_path_to_exe + _strlen(full_path_to_exe)), command);
 
 		/* Return the full, concatenated path to the executable file if found*/
 		if (stat(full_path_to_exe, &buf) == 0)
