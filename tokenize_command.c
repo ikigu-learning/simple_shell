@@ -27,7 +27,7 @@ char **tokenize_command(char *str)
 		i++;
 	}
 
-	str[i] = '\0';
+	str[i] = '\0'; /* replaces new line character with a NULL char */
 
 	token = strtok(str, " ");
 
@@ -44,14 +44,11 @@ char **tokenize_command(char *str)
 		}
 
 		_strcpy(new_string, token);
-		new_string[_strlen(token)] = '\0';
 		buffer[i] = new_string;
 		i++;
-
 		token = strtok(NULL, " ");
 	}
 
 	buffer[i] = NULL;
-
 	return (buffer);
 }
