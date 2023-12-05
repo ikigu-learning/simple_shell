@@ -8,7 +8,7 @@
  * Return: returns number of elements
  */
 
-size_t __printlist(const list_t *h)
+size_t __printlist(_path *h)
 {
 	unsigned int i;
 
@@ -28,7 +28,7 @@ size_t __printlist(const list_t *h)
  * free_list - frees a linked list
  * @head: list_t list to be freed
  */
-void __freelist(list_t *head)
+void __freelist(_path *head)
 {
 	list_t *temp;
 

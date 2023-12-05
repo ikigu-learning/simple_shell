@@ -22,7 +22,7 @@ char *find_exe(char *path_tokens[], char *command)
 
 	while (path_tokens[i])
 	{
-		size = _strlen(path_tokens[i] + _strlen(command) + 1);
+		size = (_strlen(path_tokens[i]) + _strlen(command) + 1);
 		full_path_to_exe = malloc(size);
 
 		if (!full_path_to_exe)
