@@ -1,0 +1,3 @@
+#!/bin/bash
+
+leaks --atExit --list --quiet -- ./test_hsh
