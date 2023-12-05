@@ -49,7 +49,7 @@ void run_command(char **env, char *buffer)
 		free(buffer);
 	}
 
-	/* if given command was an abs PATH, just run the command */
+	/* if 1st token is an abs PATH, runs the cmd || run cmd after finding exe*/
 	execute(command_tokens);
 }
 
