@@ -27,7 +27,7 @@ char **tokenize_command(char *str)
 		i++;
 	}
 
-	str[i] = '\0'; /* replaces new line character with a NULL char */
+	str[i] = '\0'; /* replaces \n at end of entered cmd line with \0 */
 
 	token = strtok(str, " ");
 

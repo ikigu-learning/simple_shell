@@ -19,11 +19,11 @@ void execute(char *command_tokens[])
 {
 	int status;
 
-	pid_t my_child = fork();
+	pid_t my_child = fork(); /* Create a child process */
 
 	if (my_child == 0)
 	{
-
+		/* Run the user-entered command in child process */
 		if (execve(command_tokens[0], command_tokens, NULL) == -1)
 		{
 			perror("Error");

@@ -22,26 +22,26 @@ char *find_exe(char *path_tokens[], char *command)
 	char slash[2] = "/";
 
 	if (!command)
-		exit(98); /* exit appropriately */
+		exit(98); /* replace this to exit appropriately */
 
 	i = 0;
 
 	while (path_tokens[i])
 	{
-<<<<<<< HEAD
-		size = (_strlen(path_tokens[i]) + _strlen(command) + 1);
-=======
+		/* Find the length of the concatenated path and allocate memory for it */
 		size = _strlen(path_tokens[i]) + _strlen(command) + 2;
->>>>>>> f300c33aba2b689390e1715e6ceaf729dea5499f
 		full_path_to_exe = malloc(size);
 
+		/* handle malloc error */
 		if (!full_path_to_exe)
 			return (NULL);
 
+		/* Concatenate the user-entered command and current PATH token */
 		_strcpy(full_path_to_exe, path_tokens[i]);
 		_strcpy((full_path_to_exe + _strlen(full_path_to_exe)), slash);
 	    _strcpy((full_path_to_exe + _strlen(full_path_to_exe)), command);
 
+		/* Return the full concatenated path to the exe if found */
 		if (stat(full_path_to_exe, &buf) == 0)
 		{
 			return (full_path_to_exe);

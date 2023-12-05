@@ -3,10 +3,10 @@
 #include <stdlib.h>
 
 /**
- * find_path - finds path in environent variables
+ * find_path - iterates through the env variables to find the PATH variable
  * @env: an array of pointers to env variables
  *
- * Return: pointer to path; NULL if not found
+ * Return: pointer to PATH; NULL if not found
 */
 
 char *find_path(char *env[])
