@@ -38,6 +38,9 @@ int main(int argc, char *argv[], char *env[])
 			printf("$ ");
 			bytes_read = getline(&buffer, &size, __stdinp);
 
+			if (buffer[0] == '\n' && !buffer[1])
+				continue;
+
 			if (bytes_read == -1)
 			{
 				printf("an error occurred.\n");
