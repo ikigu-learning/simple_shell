@@ -34,7 +34,6 @@ void execute_command(char *command_tokens[], char *path_tokens[])
 	{
 		wait(&status);
 		/* free here? */
-		printf("Child is dead\n");
 		free_grid(command_tokens);
 		free_grid(path_tokens);
 	}
