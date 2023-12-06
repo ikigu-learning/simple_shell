@@ -18,7 +18,6 @@ void parse_command(char **env, char *buffer)
 
 	/* Find the PATH from env, tokenize it, also tokenize user-entered command */
 	path = find_path(env);
-	printf("PATH->%s\n", path);
 	path_tokens = tokenize_path(path);
 	command_tokens = tokenize_command(buffer);
 
@@ -50,6 +49,6 @@ void parse_command(char **env, char *buffer)
 	}
 
 	/* if 1st token is an abs PATH, runs the cmd || run cmd after finding exe*/
-	execute(command_tokens, path_tokens);
+	execute_command(command_tokens, path_tokens);
 }
 

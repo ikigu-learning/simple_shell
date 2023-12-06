@@ -53,12 +53,10 @@ char **tokenize_path(char *str)
 		_strcpy(buffer[i], token);
 		i++;
 
-		printf("token->%s\n", token);
 		token = strtok(NULL, ":");
 	}
 
 	buffer[i] = NULL;
-	printf("1st dir of PATH-> %s\n", buffer[0]);
 
 	return (buffer);
 }

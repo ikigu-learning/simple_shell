@@ -28,10 +28,8 @@ char **tokenize_command(char *str)
 		i++;
 	}
 
-	str[i] = '\0'; /* replaces \n at end of entered cmd line with \0 */
-
+	str[i] = '\0';
 	token = strtok(str, " ");
-
 	i = 0;
 
 	while (token)
@@ -45,16 +43,16 @@ char **tokenize_command(char *str)
 
 			if (!buffer)
 			{
-				free(buffer);
+				free_grid(buffer);
 				return (NULL);
 			}
 		}
 		
 		buffer[i] = malloc(token_len);
 
-		if (buffer[i])
+		if (!buffer[i]) /* is first token or other token ? free differently */
 		{
-			free_grid(buffer);
+			free(buffer);
 			return (NULL);
 		}
 
