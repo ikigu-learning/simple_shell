@@ -12,10 +12,11 @@
 
 char **tokenize_command(char *str)
 {
-	char **buffer, *token, *new_string;
-	int i;
+	char **buffer, *token;
+	size_t i, buffer_size;
 
-	buffer = malloc(sizeof(char *) * 1024);
+	buffer_size = 1024;
+	buffer = malloc(sizeof(char *) * buffer_size);
 
 	if (!buffer)
 		return (NULL);
@@ -35,16 +36,30 @@ char **tokenize_command(char *str)
 
 	while (token)
 	{
-		new_string = malloc(_strlen(token) + 1);
-
-		if (!new_string)
+		size_t token_len = _strlen(token) + 1;
+		
+		if (i >= buffer_size)
 		{
-			free(buffer);
+			buffer_size *= 2;
+			buffer = realloc(buffer, sizeof(char *) * buffer_size);
+
+			if (!buffer)
+			{
+				free(buffer);
+				return (NULL);
+			}
+		}
+		
+		buffer[i] = malloc(token_len);
+
+		if (buffer[i])
+		{
+			free_grid(buffer);
 			return (NULL);
 		}
 
-		_strcpy(new_string, token);
-		buffer[i] = new_string;
+		_strcpy(buffer[i], token);
+		
 		i++;
 		token = strtok(NULL, " ");
 	}

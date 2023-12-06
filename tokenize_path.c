@@ -12,36 +12,53 @@
 
 char **tokenize_path(char *str)
 {
-	char **buffer, *token, *new_string;
-	int i;
+	char **buffer, *token;
+	size_t i, buffer_size;	
 
-	buffer = malloc(sizeof(char *) * 1024);
+	buffer_size = 1024;
+	buffer = malloc(sizeof(char *) * buffer_size);
 
 	if (!buffer)
 		return (NULL);
 
+	str += 5;
+
 	token = strtok(str, ":");
-	token = token + 5; /*removes 'PATH=' for 1st token by moving the pointer */
 	i = 0;
 
 	while (token)
 	{
-		new_string = malloc(_strlen(token) + 1);
+		size_t token_len = _strlen(token) + 1;
 
-		if (!new_string)
+		if (i >= buffer_size)
 		{
-			free(buffer);
+			buffer_size *= 2;
+			buffer = realloc(buffer, sizeof(char *) * buffer_size);
+
+			if (!buffer)
+			{
+				free(buffer);
+				return (NULL);
+			}
+		}
+		
+		buffer[i] = malloc(token_len);
+
+		if (!buffer[i])
+		{
+			free_grid(buffer);
 			return (NULL);
 		}
 
-		_strcpy(new_string, token);
-		buffer[i] = new_string;
+		_strcpy(buffer[i], token);
 		i++;
 
+		printf("token->%s\n", token);
 		token = strtok(NULL, ":");
 	}
 
 	buffer[i] = NULL;
+	printf("1st dir of PATH-> %s\n", buffer[0]);
 
 	return (buffer);
 }
