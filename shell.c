@@ -38,8 +38,11 @@ int main(int argc, char *argv[], char *env[])
 			printf("$ ");
 			bytes_read = getline(&buffer, &size, __stdinp);
 
-			if (buffer[0] == '\n' && !buffer[1])
+			if (buffer[0] == '\n')
 				continue;
+
+			if (starts_with("exit", buffer) == 0)
+				break;
 
 			if (bytes_read == -1)
 			{
