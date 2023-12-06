@@ -28,13 +28,15 @@ char *find_exe(char *path_tokens[], char *command)
 
 	while (path_tokens[i])
 	{
-		/* Find the length of the concatenated path and allocate memory for it */
+		/*Calc the length of the concatenated path and alloc memory for it*/
 		size = _strlen(path_tokens[i]) + _strlen(command) + 2;
 		full_path_to_exe = malloc(size);
 
 		/* handle malloc error */
 		if (!full_path_to_exe)
+		{
 			return (NULL);
+		}
 
 		/* Concatenate first str of user-entered cmd and current PATH token */
 		_strcpy(full_path_to_exe, path_tokens[i]);
