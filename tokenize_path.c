@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 /**
  * tokenize_path - tokenizes a string
@@ -20,7 +21,7 @@ char **tokenize_path(char *str)
 		return (NULL);
 
 	token = strtok(str, ":");
-	token = token + 5;
+	token = token + 5; /*removes 'PATH=' for 1st token by moving the pointer */
 	i = 0;
 
 	while (token)
