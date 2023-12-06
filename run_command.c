@@ -45,11 +45,10 @@ void run_command(char **env, char *buffer)
 		_strcpy(command_tokens[0], path_to_exe); /*cp full path to 1st token*/
 
 		free(path_to_exe);
-		free_grid(path_tokens);
 		free(buffer);
 	}
 
 	/* if 1st token is an abs PATH, runs the cmd || run cmd after finding exe*/
-	execute(command_tokens);
+	execute(command_tokens, path_tokens);
 }
 
