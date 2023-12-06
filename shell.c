@@ -49,7 +49,7 @@ int main(int argc, char *argv[], char *env[])
 				printf("an error occurred.\n");
 			}
 
-			run_command(env, buffer);
+			parse_command(env, buffer);
 		}
 	}
 	else
