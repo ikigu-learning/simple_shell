@@ -11,11 +11,12 @@
 /**
  * execute - executes a command line
  * @command_tokens: an array of strings that are the command
+ * @path_tokens: an array of PATH dirs
  *
  * Return: Nothing
 */
 
-void execute(char *command_tokens[])
+void execute(char *command_tokens[], char *path_tokens[])
 {
 	int status;
 
@@ -33,6 +34,8 @@ void execute(char *command_tokens[])
 	{
 		wait(&status);
 		/* free here? */
+		printf("Child is dead\n");
 		free_grid(command_tokens);
+		free_grid(path_tokens);
 	}
 }
