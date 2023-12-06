@@ -19,7 +19,7 @@ char **tokenize_path(char *str);
 
 char **tokenize_command(char *str);
 
-void execute(char *command_tokens[]);
+void execute(char *command_tokens[], char *path_tokens[]);
 
 char *find_exe(char *path_tokens[], char *command);
 
