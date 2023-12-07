@@ -15,22 +15,15 @@ char **tokenize_command(char *str)
 	char **buffer, *token;
 	size_t i, buffer_size;
 
-	buffer_size = 1024;
+	i = 0;
+	buffer_size = BUFFER_SIZE;
 	buffer = malloc(sizeof(char *) * buffer_size);
 
 	if (!buffer)
 		return (NULL);
 
-	i = 0;
-
-	while (str[i] != '\n')
-	{
-		i++;
-	}
-
-	str[i] = '\0';
+	replace_newline_char_with_null(str);
 	token = strtok(str, " ");
-	i = 0;
 
 	while (token)
 	{
@@ -50,9 +43,9 @@ char **tokenize_command(char *str)
 		
 		buffer[i] = malloc(token_len);
 
-		if (!buffer[i]) /* is first token or other token ? free differently */
+		if (!buffer[i])
 		{
-			free(buffer);
+			free_grid(buffer);
 			return (NULL);
 		}
 

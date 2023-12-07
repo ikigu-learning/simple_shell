@@ -15,7 +15,7 @@ char **tokenize_path(char *str)
 	char **buffer, *token;
 	size_t i, buffer_size;	
 
-	buffer_size = 1024;
+	buffer_size = BUFFER_SIZE;
 	buffer = malloc(sizeof(char *) * buffer_size);
 
 	if (!buffer)
@@ -37,7 +37,7 @@ char **tokenize_path(char *str)
 
 			if (!buffer)
 			{
-				free(buffer);
+				free_grid(buffer);
 				return (NULL);
 			}
 		}
@@ -57,6 +57,5 @@ char **tokenize_path(char *str)
 	}
 
 	buffer[i] = NULL;
-
 	return (buffer);
 }
