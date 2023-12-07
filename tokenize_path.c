@@ -15,6 +15,7 @@ char **tokenize_path(char *str)
 	char **buffer, *token;
 	size_t i, buffer_size;	
 
+	i = 0;
 	buffer_size = BUFFER_SIZE;
 	buffer = malloc(sizeof(char *) * buffer_size);
 
@@ -22,9 +23,7 @@ char **tokenize_path(char *str)
 		return (NULL);
 
 	str += 5;
-
 	token = strtok(str, ":");
-	i = 0;
 
 	while (token)
 	{
@@ -52,7 +51,6 @@ char **tokenize_path(char *str)
 
 		_strcpy(buffer[i], token);
 		i++;
-
 		token = strtok(NULL, ":");
 	}
 

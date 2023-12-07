@@ -50,7 +50,6 @@ char **tokenize_command(char *str)
 		}
 
 		_strcpy(buffer[i], token);
-		
 		i++;
 		token = strtok(NULL, " ");
 	}
