@@ -48,6 +48,6 @@ void parse_command(char *buffer, char **path_tokens)
 	}
 
 	/* if 1st token is an abs PATH, runs the cmd || run cmd after finding exe*/
-	execute_command(command_tokens, path_tokens);
+	execute_command(command_tokens);
 }
 

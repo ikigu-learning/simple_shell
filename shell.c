@@ -20,12 +20,16 @@
 int main(int argc, char *argv[], char *env[])
 {
 	ssize_t bytes_read;
+	char *path, **path_tokens;
 
 	char *buffer = NULL;
 	size_t size = 1024;
 
 	(void)argc;
 	(void)argv;
+
+	path = find_path(env);
+	path_tokens = tokenize_path(path);
 
 	/* Check whether stdin is a terminal */
 
@@ -34,7 +38,7 @@ int main(int argc, char *argv[], char *env[])
 		/** Come up with a better exit condition */
 
 		while (1)
-		{
+		{	
 			printf("$ ");
 			bytes_read = getline(&buffer, &size, __stdinp);
 
@@ -49,7 +53,7 @@ int main(int argc, char *argv[], char *env[])
 				printf("an error occurred.\n");
 			}
 
-			parse_command(env, buffer);
+			parse_command(buffer, path_tokens);
 		}
 	}
 	else

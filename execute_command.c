@@ -11,16 +11,16 @@
 /**
  * execute_command - executes a command line
  * @command_tokens: an array of strings that are the command
- * @path_tokens: an array of PATH dirs
  *
  * Return: Nothing
 */
 
-void execute_command(char *command_tokens[], char *path_tokens[])
+void execute_command(char *command_tokens[])
 {
 	int status;
 
 	pid_t my_child = fork(); /* Create a child process */
+
 
 	if (my_child == 0)
 	{
@@ -35,6 +35,5 @@ void execute_command(char *command_tokens[], char *path_tokens[])
 		wait(&status);
 		/* free here? */
 		free_grid(command_tokens);
-		free_grid(path_tokens);
 	}
 }
