@@ -29,8 +29,8 @@ void parse_command(char *buffer, char **path_tokens)
 
 		if (!path_to_exe) /* if executable isn't found */
 		{
-			perror("Error");
-			exit(98); /* replace with appropriate error and exit */
+			perror("Error"); /* should be "hs: command[0]: command not found" */
+			return;
 		}
 
 		/* alloc more mem to hold full path to an exe */
@@ -39,7 +39,7 @@ void parse_command(char *buffer, char **path_tokens)
 		if (!command_tokens[0]) /* Handle realloc error */
 		{
 			perror("Error");
-			exit(98); /* print appropriate error and exit */
+			return;
 		}
 
 		_strcpy(command_tokens[0], path_to_exe); /*cp full path to 1st token*/
