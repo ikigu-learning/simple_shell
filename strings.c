@@ -100,3 +100,23 @@ char *_strcat(char *str1, char *str2)
 
 	return (new_string);
 }
+
+
+/**
+ * replace_newline_char_with_null - replaces a cmd line newline char
+ * @str: the string to amend
+ *
+ * Return: Nothing
+*/
+
+void replace_newline_char_with_null(char *str)
+{
+	int i = 0;
+
+	while (str[i] != '\n')
+	{
+		i++;
+	}
+
+	str[i] = '\0';
+}
