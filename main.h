@@ -19,11 +19,11 @@ char **tokenize_path(char *str);
 
 char **tokenize_command(char *str);
 
-void execute_command(char *command_tokens[], char *path_tokens[]);
+void execute_command(char *command_tokens[]);
 
 char *find_exe(char *path_tokens[], char *command);
 
-void parse_command(char **env, char *buffer);
+void parse_command(char *buffer, char **path_tokens);
 
 void free_grid(char **grid);
 
