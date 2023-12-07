@@ -5,21 +5,21 @@
 
 /**
  * parse_command - executes a shell command
- * @env: the process' environment
  * @buffer: a buffer containing strings input to the command line
+ * @path_tokens: an array of path dirs
  *
  * Return: Nothing
 */
 
-void parse_command(char **env, char *buffer)
+void parse_command(char *buffer, char **path_tokens)
 {
-	char **command_tokens, **path_tokens, *path, *path_to_exe;
+	char **command_tokens, *path_to_exe;
 	struct stat buf;
 
-	/* Find the PATH from env, tokenize it, also tokenize user-entered command */
-	path = find_path(env);
-	path_tokens = tokenize_path(path);
 	command_tokens = tokenize_command(buffer);
+
+	if (!command_tokens)
+		exit(98); /* replace with appropriate command */
 
 	/* Where entered command is NOT an absolute path to an exe... */
 	if (stat(command_tokens[0], &buf) != 0)
@@ -45,7 +45,6 @@ void parse_command(char **env, char *buffer)
 		_strcpy(command_tokens[0], path_to_exe); /*cp full path to 1st token*/
 
 		free(path_to_exe);
-		free(buffer);
 	}
 
 	/* if 1st token is an abs PATH, runs the cmd || run cmd after finding exe*/
