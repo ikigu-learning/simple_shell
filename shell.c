@@ -31,27 +31,24 @@ int main(int argc, char *argv[], char *env[])
 	path = find_path(env);
 	path_tokens = tokenize_path(path);
 
-	/* Check whether stdin is a terminal */
-
 	if (isatty(STDIN_FILENO) == 1)
 	{
-		/** Come up with a better exit condition */
-
 		while (1)
 		{	
 			printf("$ ");
 			bytes_read = getline(&buffer, &size, __stdinp);
+
+			if (bytes_read == -1)
+			{	
+				printf("an error occurred.\n");
+				continue;
+			}
 
 			if (buffer[0] == '\n')
 				continue;
 
 			if (starts_with("exit", buffer) == 0)
 				break;
-
-			if (bytes_read == -1)
-			{
-				printf("an error occurred.\n");
-			}
 
 			parse_command(buffer, path_tokens);
 		}
@@ -63,7 +60,8 @@ int main(int argc, char *argv[], char *env[])
 		printf("Maxwell is working on it.\n");
 	}
 
+	free_grid(path_tokens);
+	free(buffer);
 	return (0);
-
 }
 
