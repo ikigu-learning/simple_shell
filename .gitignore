@@ -3,3 +3,4 @@
 .*de
 hsh*
 *.dSYM
+.DS_Store
