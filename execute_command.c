@@ -21,7 +21,6 @@ void execute_command(char *command_tokens[])
 
 	pid_t my_child = fork(); /* Create a child process */
 
-
 	if (my_child == 0)
 	{
 		/* Run the user-entered command in child process */
