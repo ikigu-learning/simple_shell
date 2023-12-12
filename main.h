@@ -3,6 +3,8 @@
 
 #define BUFFER_SIZE 1024
 
+extern char **environ;
+
 int _strlen(char *str);
 
 char *_strcpy(char *dest, const char *src);
@@ -12,10 +14,6 @@ int starts_with(char *str1, char *str2);
 char *_strcat(char *str1, char *str2);
 
 void replace_newline_char_with_null(char *str);
-
-/* size_t __printlist(const list_t *h); */
-
-/* void __freelist(list_t *head); */
 
 char *find_path(char *env[]);
 

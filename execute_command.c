@@ -24,7 +24,7 @@ void execute_command(char *command_tokens[])
 	if (my_child == 0)
 	{
 		/* Run the user-entered command in child process */
-		if (execve(command_tokens[0], command_tokens, NULL) == -1)
+		if (execve(command_tokens[0], command_tokens, environ) == -1)
 		{
 			perror("Error");
 		}
