@@ -20,7 +20,7 @@ void read_interactive_command(char *path_tokens[], char *buffer)
 	while (1)
 	{
 		printf("$ ");
-		bytes_read = getline(&buffer, &buffer_size, __stdinp);
+		bytes_read = getline(&buffer, &buffer_size, stdin);
 
 		if (bytes_read == -1)
 		{
