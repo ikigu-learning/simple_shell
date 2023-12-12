@@ -33,9 +33,26 @@ int main(int argc, char *argv[], char *env[])
 	}
 	else
 	{
-		/* non-interactive mode - Maxwell's responsibility*/
+		ssize_t bytes_read = 0;
+		size_t buffer_size = BUFFER_SIZE;
 
-		printf("Maxwell is working on it.\n");
+		while (bytes_read != -1)
+		{
+			bytes_read = getline(&buffer, &buffer_size, stdin);
+
+			if (bytes_read == -1)
+			{
+				continue; /* This is the EOF condition */
+			}
+
+			if (buffer[0] == '\n')
+				continue;
+
+			if (starts_with("exit", buffer) == 0)
+				break;
+
+			parse_command(buffer, path_tokens);
+		}
 	}
 
 	free_grid(path_tokens);
