@@ -9,21 +9,15 @@
 
 /**
  * main - entry point to simple_shell program
- * @argc: the number of arguments passed to the program
- * @argv: an array of strings passed as arguments to the program
- * @env: an array environment variables
  *
  * Return: Always 0 (Success)
  */
 
-int main(int argc, char *argv[], char *env[])
+int main(void)
 {
 	char *path, *buffer, **path_tokens;
 
-	(void)argc;
-	(void)argv;
-
-	path = find_path(env);
+	path = find_path(environ);
 	path_tokens = tokenize_path(path);
 	buffer = NULL;
 
