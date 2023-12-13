@@ -2,6 +2,7 @@
 #define MAIN_H
 
 #define BUFFER_SIZE 1024
+#include <stddef.h>
 
 #include <unistd.h>
 
@@ -40,5 +41,7 @@ void read_non_interactive_command(char *path_tokens[], char *buffer, char *argv)
 void _printenv(void);
 
 int _putchar(char c);
+
+int extend_buffer(size_t *i, char **buffer, size_t *buffer_size);
 
 #endif

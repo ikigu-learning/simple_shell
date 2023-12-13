@@ -13,8 +13,9 @@
 
 void read_interactive_command(char *path_tokens[], char *buffer, char *argv)
 {
-	ssize_t bytes_read = 0;
 	int i;
+
+	ssize_t bytes_read = 0;
 	size_t buffer_size = BUFFER_SIZE;
 
 	while (1)
@@ -56,20 +57,22 @@ void read_interactive_command(char *path_tokens[], char *buffer, char *argv)
 
 void read_non_interactive_command(char *path_tokens[], char *buffer, char *argv)
 {
+	int i;
+
 	ssize_t bytes_read = 0;
-	int i = 0;
 	size_t buffer_size = BUFFER_SIZE;
 
 	while (bytes_read != -1)
 	{
 		bytes_read = getline(&buffer, &buffer_size, stdin);
 
+
 		if (bytes_read == -1)
 		{
 			continue; /* This is the EOF condition */
 		}
 
-		for (i = 0; buffer[i] != ' '; i = 0)
+		for (i = 0; buffer[i] == ' '; i = 0)
 			buffer += 1; /* if command starts with spaces, disregard them */
 
 		if (buffer[0] == '\n')
