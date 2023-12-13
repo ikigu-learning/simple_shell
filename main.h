@@ -2,7 +2,6 @@
 #define MAIN_H
 
 #define BUFFER_SIZE 1024
-#include <stddef.h>
 
 extern char **environ;
 
@@ -33,7 +32,5 @@ void free_grid(char **grid);
 void read_interactive_command(char *path_tokens[], char *buffer);
 
 void read_non_interactive_command(char *path_tokens[], char *buffer);
-
-int extend_buffer(size_t *i, char **buffer, size_t *buffer_size);
 
 #endif

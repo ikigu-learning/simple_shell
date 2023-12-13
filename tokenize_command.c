@@ -28,10 +28,19 @@ char **tokenize_command(char *str)
 	while (token)
 	{
 		size_t token_len = _strlen(token) + 1;
+		
+		if (i >= buffer_size)
+		{
+			buffer_size *= 2;
+			buffer = realloc(buffer, sizeof(char *) * buffer_size);
 
-		if (extend_buffer(&i, buffer, &buffer_size) == -1)
-			return (NULL);
-
+			if (!buffer)
+			{
+				free_grid(buffer);
+				return (NULL);
+			}
+		}
+		
 		buffer[i] = malloc(token_len);
 
 		if (!buffer[i])
