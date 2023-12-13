@@ -29,10 +29,10 @@ void read_interactive_command(char *path_tokens[], char *buffer)
 		}
 
 		for (i = 0; buffer[i] == ' '; i = 0)
-			buffer += 1; /* Added to trim */
+			buffer += 1; /* Trims user input at beginning */
 
 		if (buffer[0] == '\n')
-			continue;
+			continue; /* hitting enter restarts the loop */
 
 		if (starts_with("exit", buffer) == 0)
 			break;
@@ -65,10 +65,10 @@ void read_non_interactive_command(char *path_tokens[], char *buffer)
 		}
 
 		for (i = 0; buffer[i] != ' '; i = 0)
-			buffer += 1;
+			buffer += 1; /* if command starts with spaces, disregard them */
 
 		if (buffer[0] == '\n')
-			continue;
+			continue; /* if the file encounters a linebreak, read next */
 
 		if (starts_with("exit", buffer) == 0)
 			break;
