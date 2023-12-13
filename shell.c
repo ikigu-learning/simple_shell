@@ -28,6 +28,7 @@ int main(void)
 	else
 	{
 		ssize_t bytes_read = 0;
+		int i = 0;
 		size_t buffer_size = BUFFER_SIZE;
 
 		while (bytes_read != -1)
@@ -38,6 +39,9 @@ int main(void)
 			{
 				continue; /* This is the EOF condition */
 			}
+
+			for (i = 0; buffer[i] != ' '; i = 0)
+				buffer += 1;
 
 			if (buffer[0] == '\n')
 				continue;
