@@ -99,21 +99,10 @@ char *read_non_interactive_command(char *path[], char *buffer, char *argv)
  */
 void _printenv(void)
 {
-	char **env;
-	size_t ind, i_ind;
+	int i;
 
-	ind = i_ind = 0;
-	env = environ;
-
-	while (env[ind])
+	for (i = 0; environ[i]; i++)
 	{
-		while (env[ind][i_ind])
-		{
-			_putchar(env[ind][i_ind]);
-			i_ind++;
-		}
-		_putchar('\n');
-		ind++;
+		printf("%s\n", environ[i]);
 	}
 }
-
