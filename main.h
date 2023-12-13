@@ -4,7 +4,11 @@
 #define BUFFER_SIZE 1024
 #include <stddef.h>
 
+#include <unistd.h>
+
 extern char **environ;
+
+void _notfound(char *argv, char *com);
 
 int _strlen(char *str);
 
@@ -26,13 +30,17 @@ void execute_command(char *command_tokens[]);
 
 char *find_exe(char *path_tokens[], char *command);
 
-void parse_command(char *buffer, char **path_tokens);
+void parse_command(char *buffer, char **path_tokens, char *argv);
 
 void free_grid(char **grid);
 
-void read_interactive_command(char *path_tokens[], char *buffer);
+void read_interactive_command(char *path_tokens[], char *buffer, char *argv);
 
-void read_non_interactive_command(char *path_tokens[], char *buffer);
+void read_non_interactive_command(char *path_tokens[], char *buffer, char *argv);
+
+void _printenv(void);
+
+int _putchar(char c);
 
 int extend_buffer(size_t *i, char **buffer, size_t *buffer_size);
 

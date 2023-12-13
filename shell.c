@@ -13,21 +13,24 @@
  * Return: Always 0 (Success)
  */
 
-int main(void)
+int main(int argc, char *argv[])
 {
 	char *path, *buffer, **path_tokens;
-
+	if (argc != 1)
+	{
+		exit(98);
+	}
 	path = find_path(environ);
 	path_tokens = tokenize_path(path);
 	buffer = NULL;
 
 	if (isatty(STDIN_FILENO) == 1)
 	{
-		read_interactive_command(path_tokens, buffer);
+		read_interactive_command(path_tokens, buffer, argv[0]);
 	}
 	else
 	{
-		read_non_interactive_command(path_tokens, buffer);
+		read_non_interactive_command(path_tokens, buffer, argv[0]);
 	}
 
 	free_grid(path_tokens);
