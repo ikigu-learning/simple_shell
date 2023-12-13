@@ -34,11 +34,11 @@ void parse_command(char *buffer, char **path_tokens, char *argv);
 
 void free_grid(char **grid);
 
-char *read_interactive_command(char *path_token[], char *buffer, char *argv);
+char *read_teractive_cmd(char *path[], char *buffer, char *argv, char *env[]);
 
-char *read_non_interactive_command(char *path[], char *buffer, char *argv);
+char *read_xteractive_cmd(char *path[], char *buffer, char *argv, char *env[]);
 
-void _printenv(void);
+void _printenv(char *env[]);
 
 int _putchar(char c);
 

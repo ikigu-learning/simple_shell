@@ -4,14 +4,16 @@
 #include <stdlib.h>
 
 /**
- * read_interactive_command - handles interactive commands
- * @path_toke: an array of path dirs
+ * read_teractive_cmd - handles interactive commands
+ * @path: an array of path dirs
  * @buffer: buffer to read the command into
  * @argv: the name of the program
+ * @env: the environment
+ *
  * Return: Nothing
 */
 
-char *read_interactive_command(char *path_toke[], char *buffer, char *argv)
+char *read_teractive_cmd(char *path[], char *buffer, char *argv, char *env[])
 {
 	int i;
 
@@ -43,25 +45,27 @@ char *read_interactive_command(char *path_toke[], char *buffer, char *argv)
 
 		if (starts_with("env", buffer) == 0)
 		{
-			_printenv();
+			_printenv(env);
 			fflush(stdin);
 			continue;
 		}
-		parse_command(buffer, path_toke, argv);
+		parse_command(buffer, path, argv);
 	}
 
 	return (cp);
 }
 
 /**
- * read_non_interactive_command - handles non_interactive commands
+ * read_xteractive_cmd - handles non_interactive commands
  * @path: an array of path dirs
  * @buffer: buffer to read the command into
  * @argv: the name of the program
+ * @env: the environment
+ *
  * Return: Nothing
 */
 
-char *read_non_interactive_command(char *path[], char *buffer, char *argv)
+char *read_xteractive_cmd(char *path[], char *buffer, char *argv, char *env[])
 {
 	int i;
 
@@ -88,20 +92,27 @@ char *read_non_interactive_command(char *path[], char *buffer, char *argv)
 		if (starts_with("exit", buffer) == 0)
 			break;
 
-		parse_command(buffer, path, argv);
+		if (starts_with("env", buffer) == 0)
+		{
+			_printenv(env);
+			fflush(stdin);
+			continue;
+		}
 
+		parse_command(buffer, path, argv);
 	}
 
 	return (cp);
 }
 /**
  * _printenv - a function to print the environment variable
+ * @env: the environment
  */
-void _printenv(void)
+void _printenv(char *env[])
 {
 	int i;
 
-	for (i = 0; environ[i]; i++)
+	for (i = 0; env[i]; i++)
 	{
 		printf("%s\n", environ[i]);
 	}
