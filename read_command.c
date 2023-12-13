@@ -41,8 +41,10 @@ char *read_teractive_cmd(char *path[], char *buffer, char *argv, char *env[])
 			continue; /* hitting enter restarts the loop */
 
 		if (starts_with("exit", buffer) == 0)
+		{
+			exit(errno);
 			break;
-
+		}
 		if (starts_with("env", buffer) == 0)
 		{
 			_printenv(env);
@@ -90,7 +92,12 @@ char *read_xteractive_cmd(char *path[], char *buffer, char *argv, char *env[])
 			continue; /* if the file encounters a linebreak, read next */
 
 		if (starts_with("exit", buffer) == 0)
+		{
+			fflush(stdin);
+			fflush(stdout);
+			fflush(stderr);
 			break;
+		}
 
 		if (starts_with("env", buffer) == 0)
 		{
@@ -110,10 +117,18 @@ char *read_xteractive_cmd(char *path[], char *buffer, char *argv, char *env[])
  */
 void _printenv(char *env[])
 {
-	int i;
+	char **env;
+	size_t ind, i_ind;
 
 	for (i = 0; env[i]; i++)
 	{
-		printf("%s\n", environ[i]);
+		while (env[ind][i_ind])
+		{
+			_putchar(env[ind][i_ind]);
+			i_ind++;
+		}
+		_putchar('\n');
+		ind++;
 	}
 }
+

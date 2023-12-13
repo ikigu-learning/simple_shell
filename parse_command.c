@@ -15,7 +15,7 @@
 void parse_command(char *buffer, char **path_tokens, char *argv)
 {
 	char **command_tokens, *path_to_exe;
-	struct stat buf;
+
 
 	command_tokens = tokenize_command(buffer);
 
@@ -23,8 +23,14 @@ void parse_command(char *buffer, char **path_tokens, char *argv)
 		exit(98); /* replace with appropriate command */
 
 	/* Where entered command is NOT an absolute path to an exe... */
-	if (stat(command_tokens[0], &buf) != 0)
+	if (_isin(command_tokens[0], '/'))
 	{
+		execute_command(command_tokens);
+		return;
+	}
+	else
+	{
+	
 		/* For each PATH dir, check for the executable file */
 		path_to_exe = find_exe(path_tokens, command_tokens[0]);
 
@@ -89,4 +95,16 @@ void _notfound(char *argv, char *com)
 		_putchar(nt[ind]);
 	}
 	_putchar('\n');
+}
+
+int _isin(char *s, char c)
+{
+	int i;
+
+	for (i = 0; s[i]; i++)
+	{
+		if (s[i] == c)
+			return (1);
+	}
+	return (0);
 }
