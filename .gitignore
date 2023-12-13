@@ -4,3 +4,5 @@
 hsh*
 *.dSYM
 .DS_Store
+print_env.c
+generate*
