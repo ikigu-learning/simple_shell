@@ -39,6 +39,9 @@ char *read_interactive_command(char *path_toke[], char *buffer, char *argv)
 			continue; /* hitting enter restarts the loop */
 
 		if (starts_with("exit", buffer) == 0)
+			fflush(stdin);
+			fflush(stdout);
+			fflush(stderr);
 			break;
 
 		if (starts_with("env", buffer) == 0)
@@ -86,6 +89,9 @@ char *read_non_interactive_command(char *path[], char *buffer, char *argv)
 			continue; /* if the file encounters a linebreak, read next */
 
 		if (starts_with("exit", buffer) == 0)
+			fflush(stdin);
+			fflush(stdout);
+			fflush(stderr);
 			break;
 
 		parse_command(buffer, path, argv);

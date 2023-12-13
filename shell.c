@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
 	if (argc != 1)
 	{
-		exit(98);
+		exit(0);
 
 	}
 	path = find_path(environ);

@@ -3,10 +3,12 @@
 
 #define BUFFER_SIZE 1024
 #include <stddef.h>
-
+#include <errno.h>
 #include <unistd.h>
 
 extern char **environ;
+
+int _isin(char *s, char c);
 
 void _notfound(char *argv, char *com);
 
