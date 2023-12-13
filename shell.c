@@ -27,30 +27,7 @@ int main(void)
 	}
 	else
 	{
-		ssize_t bytes_read = 0;
-		int i = 0;
-		size_t buffer_size = BUFFER_SIZE;
-
-		while (bytes_read != -1)
-		{
-			bytes_read = getline(&buffer, &buffer_size, stdin);
-
-			if (bytes_read == -1)
-			{
-				continue; /* This is the EOF condition */
-			}
-
-			for (i = 0; buffer[i] != ' '; i = 0)
-				buffer += 1;
-
-			if (buffer[0] == '\n')
-				continue;
-
-			if (starts_with("exit", buffer) == 0)
-				break;
-
-			parse_command(buffer, path_tokens);
-		}
+		read_non_interactive_command(path_tokens, buffer);
 	}
 
 	free_grid(path_tokens);
