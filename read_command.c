@@ -53,13 +53,13 @@ char *read_interactive_command(char *path_toke[], char *buffer, char *argv)
 
 /**
  * read_non_interactive_command - handles non_interactive commands
- * @path_token: an array of path dirs
+ * @path: an array of path dirs
  * @buffer: buffer to read the command into
  * @argv: the name of the program
  * Return: Nothing
 */
 
-char *read_non_interactive_command(char *path_token[], char *buffer, char *argv)
+char *read_non_interactive_command(char *path[], char *buffer, char *argv)
 {
 	int i;
 
@@ -86,7 +86,7 @@ char *read_non_interactive_command(char *path_token[], char *buffer, char *argv)
 		if (starts_with("exit", buffer) == 0)
 			break;
 
-		parse_command(buffer, path_token, argv);
+		parse_command(buffer, path, argv);
 
 	}
 

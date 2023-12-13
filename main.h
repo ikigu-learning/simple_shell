@@ -36,7 +36,7 @@ void free_grid(char **grid);
 
 char *read_interactive_command(char *path_token[], char *buffer, char *argv);
 
-char *read_non_interactive_command(char *path_toke[], char *buffer, char *argv);
+char *read_non_interactive_command(char *path[], char *buffer, char *argv);
 
 void _printenv(void);
 
