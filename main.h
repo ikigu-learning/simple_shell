@@ -34,9 +34,9 @@ void parse_command(char *buffer, char **path_tokens, char *argv);
 
 void free_grid(char **grid);
 
-void read_interactive_command(char *path_tokens[], char *buffer, char *argv);
+char *read_interactive_command(char *path_token[], char *buffer, char *argv);
 
-void read_non_interactive_command(char *path_tokens[], char *buffer, char *argv);
+char *read_non_interactive_command(char *path_toke[], char *buffer, char *argv);
 
 void _printenv(void);
 

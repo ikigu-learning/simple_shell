@@ -1,27 +1,29 @@
 #include "main.h"
 #include <sys/types.h>
 #include <stdio.h>
-
+#include <stdlib.h>
 
 /**
  * read_interactive_command - handles interactive commands
- * @path_tokens: an array of path dirs
+ * @path_toke: an array of path dirs
  * @buffer: buffer to read the command into
  * @argv: the name of the program
  * Return: Nothing
 */
 
-void read_interactive_command(char *path_tokens[], char *buffer, char *argv)
+char *read_interactive_command(char *path_toke[], char *buffer, char *argv)
 {
 	int i;
 
 	ssize_t bytes_read = 0;
 	size_t buffer_size = BUFFER_SIZE;
+	char *cp;
 
 	while (1)
 	{
 		printf("$ ");
 		bytes_read = getline(&buffer, &buffer_size, stdin);
+		cp = buffer;
 
 		if (bytes_read == -1)
 		{
@@ -43,28 +45,32 @@ void read_interactive_command(char *path_tokens[], char *buffer, char *argv)
 			fflush(stdin);
 			continue;
 		}
-		parse_command(buffer, path_tokens, argv);
+		parse_command(buffer, path_toke, argv);
 	}
+
+	return (cp);
 }
 
 /**
  * read_non_interactive_command - handles non_interactive commands
- * @path_tokens: an array of path dirs
+ * @path_token: an array of path dirs
  * @buffer: buffer to read the command into
  * @argv: the name of the program
  * Return: Nothing
 */
 
-void read_non_interactive_command(char *path_tokens[], char *buffer, char *argv)
+char *read_non_interactive_command(char *path_token[], char *buffer, char *argv)
 {
 	int i;
 
 	ssize_t bytes_read = 0;
 	size_t buffer_size = BUFFER_SIZE;
+	char *cp;
 
 	while (bytes_read != -1)
 	{
 		bytes_read = getline(&buffer, &buffer_size, stdin);
+		cp = buffer;
 
 		if (bytes_read == -1)
 		{
@@ -80,8 +86,11 @@ void read_non_interactive_command(char *path_tokens[], char *buffer, char *argv)
 		if (starts_with("exit", buffer) == 0)
 			break;
 
-		parse_command(buffer, path_tokens, argv);
+		parse_command(buffer, path_token, argv);
+
 	}
+
+	return (cp);
 }
 /**
  * _printenv - a function to print the environment variable
@@ -90,12 +99,13 @@ void _printenv(void)
 {
 	char **env;
 	size_t ind, i_ind;
-	      
+
 	ind = i_ind = 0;
 	env = environ;
-	while(env[ind])
+
+	while (env[ind])
 	{
-		while(env[ind][i_ind])
+		while (env[ind][i_ind])
 		{
 			_putchar(env[ind][i_ind]);
 			i_ind++;
