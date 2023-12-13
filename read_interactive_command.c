@@ -13,8 +13,8 @@
 
 void read_interactive_command(char *path_tokens[], char *buffer)
 {
-	ssize_t bytes_read;
-
+	ssize_t bytes_read = 0;
+	int i;
 	size_t buffer_size = BUFFER_SIZE;
 
 	while (1)
@@ -27,6 +27,9 @@ void read_interactive_command(char *path_tokens[], char *buffer)
 			printf("an error occurred.\n");
 			continue; /* This is the EOF condition */
 		}
+
+		for (i = 0; buffer[i] == ' '; i = 0)
+			buffer += 1; /* Added to trim */
 
 		if (buffer[0] == '\n')
 			continue;
