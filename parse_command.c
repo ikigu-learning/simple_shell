@@ -89,6 +89,4 @@ void _notfound(char *argv, char *com)
 		_putchar(nt[ind]);
 	}
 	_putchar('\n');
-
-	
 }
