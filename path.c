@@ -26,3 +26,14 @@ char *find_path(char *env[])
 
 	return (NULL);
 }
+
+/**
+ * _putchar - a function to print a character.
+ * @c: the character to be printed.
+ * Return: returns -1 on success
+ */
+
+int _putchar(char c)
+{
+	return (write(1, &c, 1));
+}

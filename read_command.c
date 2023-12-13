@@ -7,11 +7,11 @@
  * read_interactive_command - handles interactive commands
  * @path_tokens: an array of path dirs
  * @buffer: buffer to read the command into
- *
+ * @argv: the name of the program
  * Return: Nothing
 */
 
-void read_interactive_command(char *path_tokens[], char *buffer)
+void read_interactive_command(char *path_tokens[], char *buffer, char *argv)
 {
 	ssize_t bytes_read = 0;
 	int i;
@@ -36,8 +36,13 @@ void read_interactive_command(char *path_tokens[], char *buffer)
 
 		if (starts_with("exit", buffer) == 0)
 			break;
-
-		parse_command(buffer, path_tokens);
+		if (starts_with("env", buffer) == 0)
+		{
+			_printenv();
+			fflush(stdin);
+			continue;
+		}
+		parse_command(buffer, path_tokens, argv);
 	}
 }
 
@@ -45,11 +50,11 @@ void read_interactive_command(char *path_tokens[], char *buffer)
  * read_non_interactive_command - handles non_interactive commands
  * @path_tokens: an array of path dirs
  * @buffer: buffer to read the command into
- *
+ * @argv: the name of the program
  * Return: Nothing
 */
 
-void read_non_interactive_command(char *path_tokens[], char *buffer)
+void read_non_interactive_command(char *path_tokens[], char *buffer, char *argv)
 {
 	ssize_t bytes_read = 0;
 	int i = 0;
@@ -73,6 +78,28 @@ void read_non_interactive_command(char *path_tokens[], char *buffer)
 		if (starts_with("exit", buffer) == 0)
 			break;
 
-		parse_command(buffer, path_tokens);
+		parse_command(buffer, path_tokens, argv);
 	}
 }
+/**
+ * _printenv - a function to print the environment variable
+ */
+void _printenv(void)
+{
+	char **env;
+	size_t ind, i_ind;
+	      
+	ind = i_ind = 0;
+	env = environ;
+	while(env[ind])
+	{
+		while(env[ind][i_ind])
+		{
+			_putchar(env[ind][i_ind]);
+			i_ind++;
+		}
+		_putchar('\n');
+		ind++;
+	}
+}
+
