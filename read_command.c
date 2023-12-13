@@ -21,7 +21,8 @@ char *read_interactive_command(char *path_toke[], char *buffer, char *argv)
 
 	while (1)
 	{
-		printf("$ ");
+		_putchar('$');
+		_putchar(' ');
 		bytes_read = getline(&buffer, &buffer_size, stdin);
 		cp = buffer;
 
@@ -39,6 +40,7 @@ char *read_interactive_command(char *path_toke[], char *buffer, char *argv)
 
 		if (starts_with("exit", buffer) == 0)
 			break;
+
 		if (starts_with("env", buffer) == 0)
 		{
 			_printenv();
