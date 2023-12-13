@@ -61,7 +61,6 @@ void read_non_interactive_command(char *path_tokens[], char *buffer)
 	{
 		bytes_read = getline(&buffer, &buffer_size, stdin);
 
-
 		if (bytes_read == -1)
 		{
 			continue; /* This is the EOF condition */
