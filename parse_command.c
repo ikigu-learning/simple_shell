@@ -28,7 +28,6 @@ void parse_command(char *buffer, char **path_tokens)
 	}
 	else
 	{
-
 		/* For each PATH dir, check for the executable file */
 		path_to_exe = find_exe(path_tokens, command_tokens[0]);
 
@@ -54,6 +53,7 @@ void parse_command(char *buffer, char **path_tokens)
 	/* if 1st token is an abs PATH, runs the cmd/runs cmd after finding exe */
 	execute_command(command_tokens);
 }
+
 /**
  * _notfound - a function to print not found error
  * @argv: the name of the function
