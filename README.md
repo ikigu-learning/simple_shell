@@ -6,11 +6,15 @@ Hsh is a simple command line interpreter. It's based on the Bourne Shell and cop
 
 To install Hsh, clone this repository by running the following command on your shell
 
-`git clone https://github.com/ikigu-learning/simple_shell.git`
+```bash
+git clone https://github.com/ikigu-learning/simple_shell.git
+```
 
 Then cd into the simple_shell directory and run the following command
 
-`./run`
+```bash
+./run`
+```
 
 This will both compile the program and launch it.
 
