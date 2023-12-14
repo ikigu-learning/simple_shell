@@ -18,7 +18,8 @@
 
 int main(int argc, char *argv[], char *env[])
 {
-	char *path, *buffer, **path_tokens, *cp;
+	char *path, *buffer, **path_tokens, *cp, *path_copy;
+	int path_length;
 
 	(void)env;
 	(void)argv;
@@ -26,10 +27,16 @@ int main(int argc, char *argv[], char *env[])
 	if (argc != 1)
 	{
 		exit(0);
-
 	}
+
 	path = find_path(environ);
-	path_tokens = tokenize_path(path);
+	path_length = _strlen(path) + 1;
+	path_copy = malloc(path_length);
+
+	if (!path_copy)
+		return (1);
+	_strcpy(path_copy, path);
+	path_tokens = tokenize_path(path_copy);
 	buffer = NULL;
 
 	if (isatty(STDIN_FILENO) == 1)
@@ -41,6 +48,7 @@ int main(int argc, char *argv[], char *env[])
 		cp = read_xteractive_cmd(path_tokens, buffer);
 	}
 
+	free(path_copy);
 	free_grid(path_tokens);
 	free(cp);
 	return (0);

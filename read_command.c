@@ -59,7 +59,7 @@ char *read_teractive_cmd(char *path[], char *buffer)
 		if (starts_with("env", buffer) == 0)
 		{
 			print_env();
-			break;
+			continue;
 		}
 
 		parse_command(buffer, path);
