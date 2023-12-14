@@ -104,33 +104,36 @@ char *read_teractive_cmd(char *path[], char *buffer, char *env[])
 
 char *read_xteractive_cmd(char *path[], char *buffer, char *env[])
 {
+	char *cp, *cp_for_spaces;
+
 	ssize_t bytes_read = 0;
 	size_t buffer_size = BUFFER_SIZE;
-	char *cp;
 
 	while (bytes_read != -1)
 	{
 		bytes_read = getline(&buffer, &buffer_size, stdin);
 		cp = buffer;
+		cp_for_spaces = buffer;
+		cp_for_spaces = handle_spaces(cp_for_spaces);
 
 		if (bytes_read == -1)
 		{
 			continue; /* This is the EOF condition */
 		}
 
-		if (buffer[0] == '\n')
+		if (cp_for_spaces[0] == '\n')
 			continue; /* if the file encounters a linebreak, read next */
 
-		if (starts_with("exit", buffer) == 0)
+		if (starts_with("exit", cp_for_spaces) == 0)
 			break;
 
-		if (starts_with("env", buffer) == 0)
+		if (starts_with("env", cp_for_spaces) == 0)
 		{
 			print_env(env);
 			break;
 		}
 
-		parse_command(buffer, path);
+		parse_command(cp_for_spaces, path);
 	}
 	return (cp);
 }
