@@ -32,13 +32,13 @@ void execute_command(char *command_tokens[]);
 
 char *find_exe(char *path_tokens[], char *command);
 
-void parse_command(char *buffer, char **path_tokens, char *argv);
+void parse_command(char *buffer, char **path_tokens);
 
 void free_grid(char **grid);
 
-char *read_teractive_cmd(char *path[], char *buffer, char *argv, char *env[]);
+char *read_teractive_cmd(char *path[], char *buffer);
 
-char *read_xteractive_cmd(char *path[], char *buffer, char *argv, char *env[]);
+char *read_xteractive_cmd(char *path[], char *buffer);
 
 void _printenv(char *env[]);
 

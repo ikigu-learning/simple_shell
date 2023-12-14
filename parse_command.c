@@ -7,15 +7,13 @@
  * parse_command - executes a shell command
  * @buffer: a buffer containing strings input to the command line
  * @path_tokens: an array of path dirs
- * @argv: the name of the program
  *
  * Return: Nothing
 */
 
-void parse_command(char *buffer, char **path_tokens, char *argv)
+void parse_command(char *buffer, char **path_tokens)
 {
 	char **command_tokens, *path_to_exe;
-
 
 	command_tokens = tokenize_command(buffer);
 
@@ -30,13 +28,12 @@ void parse_command(char *buffer, char **path_tokens, char *argv)
 	}
 	else
 	{
-	
+
 		/* For each PATH dir, check for the executable file */
 		path_to_exe = find_exe(path_tokens, command_tokens[0]);
 
 		if (!path_to_exe) /* if executable isn't found */
 		{
-			_notfound(argv, command_tokens[0]);
 			return;
 		}
 
@@ -96,6 +93,14 @@ void _notfound(char *argv, char *com)
 	}
 	_putchar('\n');
 }
+
+/**
+ * _isin - does something
+ * @c: sth
+ * @s: sth else
+ *
+ * Return: 1 or 0
+*/
 
 int _isin(char *s, char c)
 {

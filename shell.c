@@ -20,6 +20,9 @@ int main(int argc, char *argv[], char *env[])
 {
 	char *path, *buffer, **path_tokens, *cp;
 
+	(void)env;
+	(void)argv;
+
 	if (argc != 1)
 	{
 		exit(0);
@@ -31,11 +34,11 @@ int main(int argc, char *argv[], char *env[])
 
 	if (isatty(STDIN_FILENO) == 1)
 	{
-		cp = read_teractive_cmd(path_tokens, buffer, argv[0], env);
+		cp = read_teractive_cmd(path_tokens, buffer);
 	}
 	else
 	{
-		cp = read_xteractive_cmd(path_tokens, buffer, argv[0], env);
+		cp = read_xteractive_cmd(path_tokens, buffer);
 	}
 
 	free_grid(path_tokens);

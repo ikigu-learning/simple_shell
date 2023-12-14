@@ -7,24 +7,19 @@
  * read_teractive_cmd - handles interactive commands
  * @path: an array of path dirs
  * @buffer: buffer to read the command into
- * @argv: the name of the program
- * @env: the environment
  *
  * Return: Nothing
 */
 
-char *read_teractive_cmd(char *path[], char *buffer, char *argv, char *env[])
+char *read_teractive_cmd(char *path[], char *buffer)
 {
-	int i;
-
 	ssize_t bytes_read = 0;
 	size_t buffer_size = BUFFER_SIZE;
 	char *cp;
 
 	while (1)
 	{
-		_putchar('$');
-		_putchar(' ');
+		printf("$ ");
 		bytes_read = getline(&buffer, &buffer_size, stdin);
 		cp = buffer;
 
@@ -34,24 +29,13 @@ char *read_teractive_cmd(char *path[], char *buffer, char *argv, char *env[])
 			continue; /* This is the EOF condition */
 		}
 
-		for (i = 0; buffer[i] == ' '; i = 0)
-			buffer += 1; /* Trims user input at beginning */
-
 		if (buffer[0] == '\n')
 			continue; /* hitting enter restarts the loop */
 
 		if (starts_with("exit", buffer) == 0)
-		{
-			exit(errno);
 			break;
-		}
-		if (starts_with("env", buffer) == 0)
-		{
-			_printenv(env);
-			fflush(stdin);
-			continue;
-		}
-		parse_command(buffer, path, argv);
+
+		parse_command(buffer, path);
 	}
 
 	return (cp);
@@ -61,16 +45,12 @@ char *read_teractive_cmd(char *path[], char *buffer, char *argv, char *env[])
  * read_xteractive_cmd - handles non_interactive commands
  * @path: an array of path dirs
  * @buffer: buffer to read the command into
- * @argv: the name of the program
- * @env: the environment
  *
  * Return: Nothing
 */
 
-char *read_xteractive_cmd(char *path[], char *buffer, char *argv, char *env[])
+char *read_xteractive_cmd(char *path[], char *buffer)
 {
-	int i;
-
 	ssize_t bytes_read = 0;
 	size_t buffer_size = BUFFER_SIZE;
 	char *cp;
@@ -85,50 +65,14 @@ char *read_xteractive_cmd(char *path[], char *buffer, char *argv, char *env[])
 			continue; /* This is the EOF condition */
 		}
 
-		for (i = 0; buffer[i] == ' '; i = 0)
-			buffer += 1; /* if command starts with spaces, disregard them */
-
 		if (buffer[0] == '\n')
 			continue; /* if the file encounters a linebreak, read next */
 
 		if (starts_with("exit", buffer) == 0)
-		{
-			fflush(stdin);
-			fflush(stdout);
-			fflush(stderr);
 			break;
-		}
 
-		if (starts_with("env", buffer) == 0)
-		{
-			_printenv(env);
-			fflush(stdin);
-			continue;
-		}
-
-		parse_command(buffer, path, argv);
+		parse_command(buffer, path);
 	}
-
 	return (cp);
-}
-/**
- * _printenv - a function to print the environment variable
- * @env: the environment
- */
-void _printenv(char *env[])
-{
-	char **env;
-	size_t ind, i_ind;
-
-	for (i = 0; env[i]; i++)
-	{
-		while (env[ind][i_ind])
-		{
-			_putchar(env[ind][i_ind]);
-			i_ind++;
-		}
-		_putchar('\n');
-		ind++;
-	}
 }
 
