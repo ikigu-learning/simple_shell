@@ -4,6 +4,27 @@
 #include <stdlib.h>
 
 /**
+ * print_env - prints the environment
+ *
+ * Return: Nothing
+*/
+
+void print_env(void)
+{
+	int i, j;
+
+	for (i = 0; environ[i]; i++)
+	{
+		for (j = 0; environ[i][j]; j++)
+		{
+			_putchar(environ[i][j]);
+		}
+
+		_putchar('\n');
+	}
+}
+
+/**
  * read_teractive_cmd - handles interactive commands
  * @path: an array of path dirs
  * @buffer: buffer to read the command into
@@ -34,6 +55,12 @@ char *read_teractive_cmd(char *path[], char *buffer)
 
 		if (starts_with("exit", buffer) == 0)
 			break;
+
+		if (starts_with("env", buffer) == 0)
+		{
+			print_env();
+			break;
+		}
 
 		parse_command(buffer, path);
 	}
@@ -70,6 +97,12 @@ char *read_xteractive_cmd(char *path[], char *buffer)
 
 		if (starts_with("exit", buffer) == 0)
 			break;
+
+		if (starts_with("env", buffer) == 0)
+		{
+			print_env();
+			break;
+		}
 
 		parse_command(buffer, path);
 	}
