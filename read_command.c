@@ -5,19 +5,20 @@
 
 /**
  * print_env - prints the environment
+ * @env: environment
  *
  * Return: Nothing
 */
 
-void print_env(void)
+void print_env(char *env[])
 {
 	int i, j;
 
-	for (i = 0; environ[i]; i++)
+	for (i = 0; env[i]; i++)
 	{
-		for (j = 0; environ[i][j]; j++)
+		for (j = 0; env[i][j]; j++)
 		{
-			_putchar(environ[i][j]);
+			_putchar(env[i][j]);
 		}
 
 		_putchar('\n');
@@ -28,11 +29,12 @@ void print_env(void)
  * read_teractive_cmd - handles interactive commands
  * @path: an array of path dirs
  * @buffer: buffer to read the command into
+ * @env: environment
  *
  * Return: Nothing
 */
 
-char *read_teractive_cmd(char *path[], char *buffer)
+char *read_teractive_cmd(char *path[], char *buffer, char *env[])
 {
 	ssize_t bytes_read = 0;
 	size_t buffer_size = BUFFER_SIZE;
@@ -58,7 +60,7 @@ char *read_teractive_cmd(char *path[], char *buffer)
 
 		if (starts_with("env", buffer) == 0)
 		{
-			print_env();
+			print_env(env);
 			continue;
 		}
 
@@ -72,11 +74,12 @@ char *read_teractive_cmd(char *path[], char *buffer)
  * read_xteractive_cmd - handles non_interactive commands
  * @path: an array of path dirs
  * @buffer: buffer to read the command into
+ * @env: environment
  *
  * Return: Nothing
 */
 
-char *read_xteractive_cmd(char *path[], char *buffer)
+char *read_xteractive_cmd(char *path[], char *buffer, char *env[])
 {
 	ssize_t bytes_read = 0;
 	size_t buffer_size = BUFFER_SIZE;
@@ -100,7 +103,7 @@ char *read_xteractive_cmd(char *path[], char *buffer)
 
 		if (starts_with("env", buffer) == 0)
 		{
-			print_env();
+			print_env(env);
 			break;
 		}
 

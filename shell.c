@@ -21,7 +21,6 @@ int main(int argc, char *argv[], char *env[])
 	char *path, *buffer, **path_tokens, *cp, *path_copy;
 	int path_length;
 
-	(void)env;
 	(void)argv;
 
 	if (argc != 1)
@@ -41,11 +40,11 @@ int main(int argc, char *argv[], char *env[])
 
 	if (isatty(STDIN_FILENO) == 1)
 	{
-		cp = read_teractive_cmd(path_tokens, buffer);
+		cp = read_teractive_cmd(path_tokens, buffer, env);
 	}
 	else
 	{
-		cp = read_xteractive_cmd(path_tokens, buffer);
+		cp = read_xteractive_cmd(path_tokens, buffer, env);
 	}
 
 	free(path_copy);
