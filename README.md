@@ -13,7 +13,7 @@ git clone https://github.com/ikigu-learning/simple_shell.git
 Then cd into the simple_shell directory and run the following command
 
 ```bash
-./run`
+./run
 ```
 
 This will both compile the program and launch it.
