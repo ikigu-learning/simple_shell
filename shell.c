@@ -36,7 +36,6 @@ int main(int argc, char *argv[], char *env[])
 	_strcpy(path_copy, path);
 	path_tokens = tokenize(path_copy, ":");
 
-
 	if (isatty(STDIN_FILENO) == 1)
 	{
 		copy_of_buffer_to_free = read_cmd(path_tokens, env, 1);
