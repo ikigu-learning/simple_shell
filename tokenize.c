@@ -41,6 +41,9 @@ char **tokenize(char *str, char *delim)
 	char **buffer, *token;
 	size_t i, buffer_size;
 
+	if (!str)
+		return (NULL);
+
 	i = 0;
 	buffer_size = BUFFER_SIZE;
 	buffer = malloc(sizeof(char *) * buffer_size);
