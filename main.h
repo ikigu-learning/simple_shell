@@ -26,11 +26,11 @@ void execute_command(char *command_tokens[]);
 
 char *find_exe(char *path_tokens[], char *command);
 
-void parse_command(char *buffer, char **path_tokens);
+void parse_command(char *arg1, char *buffer, char **path, int runs);
 
 void free_grid(char **grid);
 
-char *read_cmd(char *path[], char *env[], int atty);
+char *read_cmd(char *arg1, char *path[], char *env[], int atty);
 
 void _printenv(char *env[]);
 

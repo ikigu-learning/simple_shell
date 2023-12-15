@@ -44,11 +44,11 @@ int main(int argc, char *argv[], char *env[])
 
 	if (isatty(STDIN_FILENO) == 1)
 	{
-		copy_of_buffer_to_free = read_cmd(path_tokens, env, 1);
+		copy_of_buffer_to_free = read_cmd(argv[0], path_tokens, env, 1);
 	}
 	else
 	{
-		copy_of_buffer_to_free = read_cmd(path_tokens, env, 0);
+		copy_of_buffer_to_free = read_cmd(argv[0], path_tokens, env, 0);
 	}
 
 	free(path_copy);

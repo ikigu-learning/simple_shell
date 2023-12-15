@@ -4,14 +4,41 @@
 #include <sys/stat.h>
 
 /**
+ * handle_cmd_not_found - prints file not found to the stderr
+ * @arg1: name of program
+ * @runs: number of lines read
+ * @command: latest entered command
+*/
+
+void handle_cmd_not_found(char *arg1, int runs, char *command)
+{
+	char buffer[BUFFER_SIZE];
+	char number_buffer[8];
+
+	sprintf(number_buffer, "%d", runs);
+
+	_strcpy(buffer, arg1); /* .hsh */
+	_strcpy(buffer + _strlen(buffer), ": ");  /* .hsh:  */
+	_strcpy(buffer + _strlen(buffer), number_buffer);  /* .hsh: 1 */
+	_strcpy(buffer + _strlen(buffer), ": "); /* .hsh: 1: */
+	_strcpy(buffer + _strlen(buffer), command); /* .hsh: 1: command */
+	_strcpy(buffer + _strlen(buffer), ": "); /* .hsh: 1: command: */
+	_strcpy(buffer + _strlen(buffer), "not found\n");
+
+	write(STDERR_FILENO, buffer, (unsigned long)_strlen(buffer));
+}
+
+/**
  * parse_command - executes a shell command
+ * @arg1: program name
  * @buffer: a buffer containing strings input to the command line
- * @path_tokens: an array of path dirs
+ * @path: an array of path dirs
+ * @runs: number of times command has been called
  *
  * Return: Nothing
 */
 
-void parse_command(char *buffer, char **path_tokens)
+void parse_command(char *arg1, char *buffer, char **path, int runs)
 {
 	char **command_tokens, *path_to_exe;
 
@@ -19,18 +46,18 @@ void parse_command(char *buffer, char **path_tokens)
 
 	/* Where entered command might be an absolute path to an exe... */
 	if (_isin(command_tokens[0], '/') == 1 &&
-	find_exe(path_tokens, command_tokens[0]) != NULL)
+	find_exe(path, command_tokens[0]) != NULL)
 	{
 		execute_command(command_tokens);
 		return;
 	}
 	else
 	{
-		path_to_exe = find_exe(path_tokens, command_tokens[0]);
+		path_to_exe = find_exe(path, command_tokens[0]);
 
 		if (!path_to_exe) /* if executable isn't found */
 		{
-			perror("./hsh: 1: some_command");
+			handle_cmd_not_found(arg1, runs, command_tokens[0]);
 			return;
 		}
 
@@ -51,44 +78,3 @@ void parse_command(char *buffer, char **path_tokens)
 	/* if 1st token is an abs PATH, runs the cmd/runs cmd after finding exe */
 	execute_command(command_tokens);
 }
-
-/**
- * _notfound - a function to print not found error
- * @argv: the name of the function
- * @com: the command not found
- */
-void _notfound(char *argv, char *com)
-{
-	size_t ind;
-	char *nt, *delim;
-
-	nt = "not found";
-	delim = ": ";
-	for (ind = 0; argv[ind] != '\0'; ind++)
-	{
-		_putchar(argv[ind]);
-	}
-	for (ind = 0; delim[ind] != '\0'; ind++)
-	{
-		_putchar(delim[ind]);
-	}
-	_putchar('1');
-	for (ind = 0; delim[ind] != '\0'; ind++)
-	{
-		_putchar(delim[ind]);
-	}
-	for (ind = 0; com[ind] != '\0'; ind++)
-	{
-		_putchar(com[ind]);
-	}
-		for (ind = 0; delim[ind] != '\0'; ind++)
-	{
-		_putchar(delim[ind]);
-	}
-	for (ind = 0; nt[ind] != '\0'; ind++)
-	{
-		_putchar(nt[ind]);
-	}
-	_putchar('\n');
-}
-

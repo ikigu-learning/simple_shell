@@ -74,6 +74,7 @@ int eof(int *eof_flag, int atty, int bytes_read)
 
 /**
  * read_cmd - reads and handles command lines
+ * @arg1: program name
  * @path: an array of path dirs
  * @env: an array of env variables
  * @atty: flag to let us know whether STDIN is a terminal
@@ -81,13 +82,14 @@ int eof(int *eof_flag, int atty, int bytes_read)
  * Return: copy of command line buffer to free
 */
 
-char *read_cmd(char *path[], char *env[], int atty)
+char *read_cmd(char *arg1, char *path[], char *env[], int atty)
 {
 	char *copy_of_input_to_free, *copy_of_input_to_trim, *buffer;
 
 	ssize_t bytes_read = 0;
 	size_t buffer_size = BUFFER_SIZE;
 	int eof_flag = 0;
+	int runs = 0;
 
 	buffer = NULL;
 
@@ -95,6 +97,8 @@ char *read_cmd(char *path[], char *env[], int atty)
 	{
 		if (atty == 1)
 			printf("$ ");
+
+		runs++;
 
 		bytes_read = getline(&buffer, &buffer_size, stdin);
 
@@ -115,7 +119,7 @@ char *read_cmd(char *path[], char *env[], int atty)
 			print_env(env);
 			continue;
 		}
-		parse_command(copy_of_input_to_trim, path);
+		parse_command(arg1, copy_of_input_to_trim, path, runs);
 	}
 
 	return (copy_of_input_to_free);
