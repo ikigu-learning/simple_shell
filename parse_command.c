@@ -17,8 +17,8 @@ void parse_command(char *buffer, char **path_tokens)
 
 	command_tokens = tokenize(buffer, " ");
 
-	/* Where entered command is NOT an absolute path to an exe... */
-	if (_isin(command_tokens[0], '/') &&
+	/* Where entered command might be an absolute path to an exe... */
+	if (_isin(command_tokens[0], '/') == 1 &&
 	find_exe(path_tokens, command_tokens[0]) != NULL)
 	{
 		execute_command(command_tokens);
@@ -30,6 +30,7 @@ void parse_command(char *buffer, char **path_tokens)
 
 		if (!path_to_exe) /* if executable isn't found */
 		{
+			perror("./hsh: 1: some_command");
 			return;
 		}
 
