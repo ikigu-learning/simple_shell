@@ -1,5 +1,5 @@
 #!/bin/bash
 
-gcc -Wall -Wextra -Werror -pedantic -std=gnu89 -g shell.c strings.c path.c execute_command.c read_command.c parse_command.c free_mem.c find_exe.c extend_buffer.c tokenize_path.c tokenize_command.c -o hsh
+gcc -Wall -Wextra -Werror -pedantic -std=gnu89 -g shell.c strings.c path.c execute_command.c read_command.c parse_command.c free_mem.c find_exe.c extend_buffer.c tokenize.c -o hsh
 
-./test_hsh
+./hsh
