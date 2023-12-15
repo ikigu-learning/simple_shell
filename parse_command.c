@@ -18,14 +18,12 @@ void handle_cmd_not_found(char *arg1, int runs, char *command)
 	sprintf(number_buffer, "%d", runs);
 
 	_strcpy(buffer, arg1); /* .hsh */
-	_strcpy(buffer + _strlen(buffer), ": ");  /* .hsh:  */
+	_strcpy(buffer + _strlen(buffer), ": ");  /* ./hsh:  */
 	_strcpy(buffer + _strlen(buffer), number_buffer);  /* .hsh: 1 */
-	_strcpy(buffer + _strlen(buffer), ": "); /* .hsh: 1: */
-	_strcpy(buffer + _strlen(buffer), command); /* .hsh: 1: command */
-	_strcpy(buffer + _strlen(buffer), ": "); /* .hsh: 1: command: */
-	_strcpy(buffer + _strlen(buffer), "not found\n");
+	_strcpy(buffer + _strlen(buffer), ": "); /* ./hsh: 1: */
+	_strcpy(buffer + _strlen(buffer), command); /* ./hsh: 1: command */
 
-	write(STDERR_FILENO, buffer, (unsigned long)_strlen(buffer));
+	perror(buffer);
 }
 
 /**
