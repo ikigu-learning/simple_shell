@@ -17,18 +17,15 @@ void parse_command(char *buffer, char **path_tokens)
 
 	command_tokens = tokenize(buffer, " ");
 
-	if (!command_tokens)
-		exit(98); /* replace with appropriate command */
-
 	/* Where entered command is NOT an absolute path to an exe... */
-	if (_isin(command_tokens[0], '/'))
+	if (_isin(command_tokens[0], '/') &&
+	find_exe(path_tokens, command_tokens[0]) != NULL)
 	{
 		execute_command(command_tokens);
 		return;
 	}
 	else
 	{
-		/* For each PATH dir, check for the executable file */
 		path_to_exe = find_exe(path_tokens, command_tokens[0]);
 
 		if (!path_to_exe) /* if executable isn't found */

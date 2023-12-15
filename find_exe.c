@@ -19,14 +19,10 @@ char *find_exe(char *path_tokens[], char *command)
 	char *full_path_to_exe;
 	struct stat buf;
 
-	char slash[2] = "/";
+	if (stat(command, &buf) == 0) /* if command is already an executable */
+		return (command);
 
-	if (!command)
-		exit(98); /* replace this to exit appropriately */
-
-	i = 0;
-
-	while (path_tokens[i])
+	for (i = 0; path_tokens[i]; i++)
 	{
 		/*Calc the length of the concatenated path and alloc memory for it*/
 		size = _strlen(path_tokens[i]) + _strlen(command) + 2;
@@ -34,22 +30,17 @@ char *find_exe(char *path_tokens[], char *command)
 
 		/* handle malloc error */
 		if (!full_path_to_exe)
-		{
 			return (NULL);
-		}
 
 		/* Concatenate first str of user-entered cmd and current PATH token */
 		_strcpy(full_path_to_exe, path_tokens[i]);
-		_strcpy((full_path_to_exe + _strlen(full_path_to_exe)), slash);
+		_strcpy((full_path_to_exe + _strlen(full_path_to_exe)), "/");
 		_strcpy((full_path_to_exe + _strlen(full_path_to_exe)), command);
 
 		/* Return the full, concatenated path to the executable file if found*/
 		if (stat(full_path_to_exe, &buf) == 0)
-		{
 			return (full_path_to_exe);
-		}
 
-		i++;
 		free(full_path_to_exe); /* to avoid reallocating in the next iteration */
 	}
 
