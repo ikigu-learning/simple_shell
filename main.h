@@ -30,9 +30,7 @@ void parse_command(char *buffer, char **path_tokens);
 
 void free_grid(char **grid);
 
-char *read_teractive_cmd(char *path[], char *buffer, char *env[]);
-
-char *read_xteractive_cmd(char *path[], char *buffer, char *env[]);
+char *read_cmd(char *path[], char *buffer, char *env[], int atty);
 
 void _printenv(char *env[]);
 

@@ -40,11 +40,11 @@ int main(int argc, char *argv[], char *env[])
 
 	if (isatty(STDIN_FILENO) == 1)
 	{
-		cp = read_teractive_cmd(path_tokens, buffer, env);
+		cp = read_cmd(path_tokens, buffer, env, 1);
 	}
 	else
 	{
-		cp = read_xteractive_cmd(path_tokens, buffer, env);
+		cp = read_cmd(path_tokens, buffer, env, 0);
 	}
 
 	free(path_copy);

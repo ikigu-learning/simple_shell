@@ -26,115 +26,97 @@ void print_env(char *env[])
 }
 
 /**
- * handle_spaces - handles spaces in input
+ * trim - handles spaces in input
  * @str: string to check for spaces
  *
  *  Return: new location of pointer
 */
 
-char *handle_spaces(char *str)
+char *trim(char *str)
 {
 	if (str[0] == ' ')
 	{
 		while (str[0] == ' ')
 			str += 1;
-
 	}
 
 	return (str);
 }
 
 /**
- * read_teractive_cmd - handles interactive commands
- * @path: an array of path dirs
- * @buffer: buffer to read the command into
- * @env: environment
+ * eof - handles end-of-file condition in shell read loop
+ * @eof_flag: flag that indicates end of loop condition
+ * @atty: flag that indicates whether command is from terminal
+ * @bytes_read: number of bytes read
  *
- * Return: Nothing
+ * Return: 1 if EOF, else -> returns 0
+ *
+ * Description: When eof_flag is set to 1, shell read loop will terminate.
 */
 
-char *read_teractive_cmd(char *path[], char *buffer, char *env[])
+int eof(int *eof_flag, int atty, int bytes_read)
 {
-	char *cp, *cp_for_spaces;
+	if (atty != 1 && bytes_read == -1)
+	{
+		*eof_flag = 1;
+	}
+	else if (atty == 1 && bytes_read == -1)
+	{
+		return (1);
+	}
+	else if (bytes_read != -1)
+	{
+		return (0);
+	}
+
+	return (1);
+}
+
+/**
+ * read_cmd - reads and handles command lines
+ * @path: an array of path dirs
+ * @buffer: buffer to read the command line into
+ * @env: an array of env variables
+ * @atty: flag to let us know whether STDIN is a terminal
+ *
+ * Return: copy of command line buffer to free
+*/
+
+char *read_cmd(char *path[], char *buffer, char *env[], int atty)
+{
+	char *copy_of_input_to_free, *copy_of_input_to_trim;
 
 	ssize_t bytes_read = 0;
 	size_t buffer_size = BUFFER_SIZE;
+	int eof_flag = 0;
 
-	while (1)
+	while (eof_flag != 1)
 	{
-		printf("$ ");
+		if (atty == 1)
+			printf("$ ");
+
 		bytes_read = getline(&buffer, &buffer_size, stdin);
-		cp = buffer;
-		cp_for_spaces = buffer;
 
-		cp_for_spaces = handle_spaces(cp_for_spaces);
+		copy_of_input_to_free = buffer;
+		copy_of_input_to_trim = buffer;
 
-		if (bytes_read == -1)
-		{
-			printf("an error occurred.\n");
-			continue; /* This is the EOF condition */
-		}
+		copy_of_input_to_trim = trim(copy_of_input_to_trim);
 
-		if (cp_for_spaces[0] == '\n')
-			continue; /* hitting enter restarts the loop */
+		if (eof(&eof_flag, atty, bytes_read) == 1 ||
+		 copy_of_input_to_trim[0] == '\n')
+			continue;
 
-		if (starts_with("exit", cp_for_spaces) == 0)
+		if (starts_with("exit", copy_of_input_to_trim) == 0)
 			break;
 
-		if (starts_with("env", cp_for_spaces) == 0)
+		if (starts_with("env", copy_of_input_to_trim) == 0)
 		{
 			print_env(env);
 			continue;
 		}
 
-		parse_command(cp_for_spaces, path);
+		parse_command(copy_of_input_to_trim, path);
 	}
 
-	return (cp);
+	return (copy_of_input_to_free);
 }
-
-/**
- * read_xteractive_cmd - handles non_interactive commands
- * @path: an array of path dirs
- * @buffer: buffer to read the command into
- * @env: environment
- *
- * Return: Nothing
-*/
-
-char *read_xteractive_cmd(char *path[], char *buffer, char *env[])
-{
-	char *cp, *cp_for_spaces;
-
-	ssize_t bytes_read = 0;
-	size_t buffer_size = BUFFER_SIZE;
-
-	while (bytes_read != -1)
-	{
-		bytes_read = getline(&buffer, &buffer_size, stdin);
-		cp = buffer;
-		cp_for_spaces = buffer;
-		cp_for_spaces = handle_spaces(cp_for_spaces);
-
-		if (bytes_read == -1)
-		{
-			continue; /* This is the EOF condition */
-		}
-
-		if (cp_for_spaces[0] == '\n')
-			continue; /* if the file encounters a linebreak, read next */
-
-		if (starts_with("exit", cp_for_spaces) == 0)
-			break;
-
-		if (starts_with("env", cp_for_spaces) == 0)
-		{
-			print_env(env);
-			break;
-		}
-
-		parse_command(cp_for_spaces, path);
-	}
-	return (cp);
-}
-
