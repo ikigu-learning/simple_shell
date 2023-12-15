@@ -26,7 +26,7 @@ int main(int argc, char *argv[], char *env[])
 	if (argc != 1)
 		exit(0); /* fix this */
 
-	path = find_path(env);
+	path = find_path(environ);
 	path_length = _strlen(path) + 1;
 	path_copy = malloc(path_length);
 
