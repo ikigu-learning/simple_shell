@@ -94,22 +94,3 @@ void _notfound(char *argv, char *com)
 	_putchar('\n');
 }
 
-/**
- * _isin - does something
- * @c: sth
- * @s: sth else
- *
- * Return: 1 or 0
-*/
-
-int _isin(char *s, char c)
-{
-	int i;
-
-	for (i = 0; s[i]; i++)
-	{
-		if (s[i] == c)
-			return (1);
-	}
-	return (0);
-}

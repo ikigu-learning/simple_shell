@@ -19,7 +19,6 @@ int _strlen(char *str)
 	return (count);
 }
 
-
 /**
   * starts_with - checks whether str2 starts with str1
   * @str1: the string to compare against
@@ -73,36 +72,6 @@ char *_strcpy(char *dest, const char *src)
 }
 
 /**
- * _strcat - concatenates two strings
- * @str1: the first string
- * @str2: the second string
- *
- * Return: a pointer to the new string on success,
- * NULL on failure
-*/
-
-char *_strcat(char *str1, char *str2)
-{
-	int size;
-	char *new_string;
-
-	if (!str1 || !str2)
-		return (NULL);
-
-	size = _strlen(str1) + _strlen(str2) + 1;
-	new_string = malloc(size);
-
-	if (!new_string)
-		return (NULL);
-
-	_strcpy(new_string, str1);
-	_strcpy((new_string + _strlen(str1)), str2);
-
-	return (new_string);
-}
-
-
-/**
  * replace_newline_char_with_null - replaces a cmd line newline char
  * @str: the string to amend
  *
@@ -119,4 +88,24 @@ void replace_newline_char_with_null(char *str)
 	}
 
 	str[i] = '\0';
+}
+
+/**
+ * _isin - checks whether character c is present in strinc s
+ * @c: character to check whether is included
+ * @s: string to check agains
+ *
+ * Return: 1 or 0
+*/
+
+int _isin(char *s, char c)
+{
+	int i;
+
+	for (i = 0; s[i]; i++)
+	{
+		if (s[i] == c)
+			return (1);
+	}
+	return (0);
 }
