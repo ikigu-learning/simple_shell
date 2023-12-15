@@ -46,4 +46,8 @@ int _putchar(char c);
 
 int extend_buffer(size_t *i, char **buffer, size_t *buffer_size);
 
+char *prep(char *str);
+
+char **tokenize(char *str, char *delim);
+
 #endif

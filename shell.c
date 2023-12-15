@@ -35,7 +35,7 @@ int main(int argc, char *argv[], char *env[])
 	if (!path_copy)
 		return (1);
 	_strcpy(path_copy, path);
-	path_tokens = tokenize_path(path_copy);
+	path_tokens = tokenize(path_copy, ":");
 	buffer = NULL;
 
 	if (isatty(STDIN_FILENO) == 1)

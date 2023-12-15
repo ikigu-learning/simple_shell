@@ -15,7 +15,7 @@ void parse_command(char *buffer, char **path_tokens)
 {
 	char **command_tokens, *path_to_exe;
 
-	command_tokens = tokenize_command(buffer);
+	command_tokens = tokenize(buffer, " ");
 
 	if (!command_tokens)
 		exit(98); /* replace with appropriate command */
