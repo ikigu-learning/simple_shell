@@ -1,5 +1,73 @@
 #!/bin/bash
 
-gcc -Wall -Wextra -Werror -pedantic -std=gnu89 -g shell.c strings.c path.c execute_command.c read_command.c parse_command.c free_mem.c find_exe.c extend_buffer.c tokenize.c -o hsh
+PURPLE='\033[0;35m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+RESET='\033[0m'
 
-./hsh
+# Step 1: Check if "hsh" file exists
+exists=false
+if [ -e "hsh" ]; then
+    exists=true
+fi
+
+# Step 2: Check if the option "-r" was set
+compile=false
+while getopts ":r" opt; do
+  case $opt in
+    r)
+      compile=true
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
+done
+
+# Step 3: If "hsh" doesn't exist and -r wasn't set, prompt the user
+if [ "$exists" = false ] && [ "$compile" = false ]; then
+    read -p "The 'hsh' file doesn't exist. Do you want to compile the program? [y/n]: " response
+
+    # Step 4: If the user types "n", display a message and exit
+    if [ "$response" = "n" ]; then
+        echo ">>  Why even \(^^)/?"
+        exit 0
+    fi
+
+    # Step 5: If the user types "y", compile and run the program
+    if [ "$response" = "y" ]; then
+        gcc -Wall -Wextra -Werror -pedantic -std=gnu89 -o hsh $(ls *.c | grep -v '^test')
+        
+        # Check if compilation was successful
+        if [ $? -eq 0 ]; then
+			echo -e "${GREEN}>>>Compilation successful. Starting hsh...${RESET}"
+            ./hsh
+        else
+            echo "There was a compilation error. Exiting..."
+        fi
+        exit 0
+    fi
+fi
+
+# Step 6: If -r was set or "hsh" exists, compile and run the program
+if [ "$compile" = true ] && [ "$exists" = true ]; then
+    echo -e "${GREEN}>>>Recompiling...${RESET}"
+	gcc -Wall -Wextra -Werror -pedantic -std=gnu89 -o hsh $(ls *.c | grep -v '^test')
+    
+    # Check if compilation was successful
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}>>>Recompilation successful. Starting hsh...${RESET}"
+		./hsh
+    else
+        echo -e "${PURPLE}>>>There was a recompilation error. Exiting run script...${RESET}"
+    fi
+	exit 0
+fi
+
+# Step 8: 
+if [ "$compile" = false ] || [ "$exists" = true ]; then
+    echo -e "${GREEN}>>>Starting hsh...${RESET}"
+	./hsh
+	exit 0
+fi
